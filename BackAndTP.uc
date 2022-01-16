@@ -45,9 +45,6 @@ function addLocationAndRotationForPlayer(PlayerPawn player) {
 	
 	TeleportLocAndRotStorage[playerID].TeleportLocations[0] = player.Location;
 	TeleportLocAndRotStorage[playerID].TeleportRotations[0] = player.Rotation;
-
-	Log(TeleportLocAndRotStorage[playerID].TeleportLocations[0]);
-	
 }
 
 
@@ -68,6 +65,7 @@ function int getPlayerID(string playername) {
 			
 			// At the same time spawn in a LocAndRotStorage object for the player.
 			TeleportLocAndRotStorage[i] = Spawn(class'BackAndTP.LocAndRotStorage');
+			TeleportLocAndRotStorage[i].bHidden = true;
 			return i;
 		}
 	}
@@ -104,7 +102,8 @@ function Mutate(string MutateString, PlayerPawn Sender) {
 		
 		Sender.SetLocation(TeleportLocAndRotStorage[playerID].TeleportLocations[9]);
 		Sender.SetRotation(TeleportLocAndRotStorage[playerID].TeleportRotations[9]);
-
+		Sender.ViewRotation = TeleportLocAndRotStorage[playerID].TeleportRotations[9];
+		
 		Level.Game.PlayTeleportEffect(Sender, false, true);
 
 	}
